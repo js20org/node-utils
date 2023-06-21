@@ -15,6 +15,9 @@
         "show-coverage": "open ./tests/.coverage/lcov-report/index.html",
         "test": "jest"
     },
+    "dependencies": {
+        "prompts": "^2.4.0"
+    },
     "devDependencies": {
         "@babel/core": "^7.15.0",
         "@babel/plugin-transform-runtime": "^7.15.0",
