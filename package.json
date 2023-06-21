@@ -1,6 +1,7 @@
 {
     "name": "js-common-node",
     "version": "1.0.0",
+    "license": "MIT",
     "private": false,
     "sideEffects": false,
     "files": [
