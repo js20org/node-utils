@@ -7,7 +7,7 @@ const logCommandError = (logger: ILogger, result: IExecuteResult) => {
         logger.log(result.error.message);
     }
 
-    logger.log('Command stdout/stderr:\n')
+    logger.log('Command stdout/stderr:\n');
     logger.log(fontDim(result.combinedOut));
 };
 
@@ -31,24 +31,37 @@ const execute = async (command: string): Promise<IExecuteResult> => {
 export class Executor {
     private logger: ILogger;
     private lastResult: IExecuteResult;
+    private isMock: boolean;
 
-    constructor(logger: ILogger) {
+    constructor(logger: ILogger, isMock: boolean) {
         this.logger = logger;
+        this.isMock = isMock;
     }
 
     async execute(command: string): Promise<IExecuteResult> {
         logCommandExecuting(this.logger, command);
-        
-        this.lastResult = await execute(command);
-        this.logger.logVerbose(fontDim(this.lastResult.combinedOut));
 
-        if (this.lastResult.error) {
-            return <any>this.failWithError(
-                new Error(this.lastResult.error.message)
-            );
+        if (this.isMock) {
+            this.lastResult = {
+                error: null,
+                combinedOut: '',
+            };
+
+            this.logger.log('Mock execute: ' + command);
+
+            return this.lastResult;
+        } else {
+            this.lastResult = await execute(command);
+            this.logger.logVerbose(fontDim(this.lastResult.combinedOut));
+
+            if (this.lastResult.error) {
+                return <any>(
+                    this.failWithError(new Error(this.lastResult.error.message))
+                );
+            }
+
+            return this.lastResult;
         }
-
-        return this.lastResult;
     }
 
     private assertHasResult() {
@@ -85,7 +98,9 @@ export class Executor {
 
         if (!isMatch) {
             return this.failWithError(
-                new Error(`Command response did not include "${content}".\n${explanation}`)
+                new Error(
+                    `Command response did not include "${content}".\n${explanation}`
+                )
             );
         }
 
@@ -100,7 +115,7 @@ export class Executor {
                 new Error('Expected command output to be empty.')
             );
         }
-        
+
         return this;
     }
 }
