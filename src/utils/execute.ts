@@ -33,7 +33,7 @@ export class Executor {
     private lastResult: IExecuteResult;
     private isMock: boolean;
 
-    constructor(logger: ILogger, isMock: boolean) {
+    constructor(logger: ILogger, isMock: boolean = false) {
         this.logger = logger;
         this.isMock = isMock;
     }
