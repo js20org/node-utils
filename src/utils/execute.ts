@@ -1,4 +1,4 @@
-import { exec } from 'child_process';
+import { exec, ExecException } from 'child_process';
 import { IExecuteResult, ILogger } from '../types';
 import { fontDim } from './font';
 
@@ -19,7 +19,7 @@ const execute = async (command: string): Promise<IExecuteResult> => {
     return new Promise((resolve) => {
         exec(command, (error, stdout, stderr) => {
             const result: IExecuteResult = {
-                error,
+                error: error as ExecException,
                 combinedOut: `${stdout}\n${stderr}`,
             };
 
@@ -30,7 +30,7 @@ const execute = async (command: string): Promise<IExecuteResult> => {
 
 export class Executor {
     private logger: ILogger;
-    private lastResult: IExecuteResult;
+    private lastResult: IExecuteResult | null = null;
     private isMock: boolean;
 
     constructor(logger: ILogger, isMock: boolean = false) {
@@ -73,14 +73,14 @@ export class Executor {
     }
 
     private failWithError(error: Error) {
-        logCommandError(this.logger, this.lastResult);
+        logCommandError(this.logger, this.lastResult!);
         throw error;
     }
 
     assertOutputMatches(pattern: RegExp) {
         this.assertHasResult();
 
-        const isMatch = pattern.test(this.lastResult.combinedOut);
+        const isMatch = pattern.test(this.lastResult!.combinedOut);
 
         if (!isMatch) {
             return this.failWithError(
@@ -94,7 +94,7 @@ export class Executor {
     assertOutputIncludes(content: string, explanation: string = '') {
         this.assertHasResult();
 
-        const isMatch = this.lastResult.combinedOut.includes(content);
+        const isMatch = this.lastResult!.combinedOut.includes(content);
 
         if (!isMatch) {
             return this.failWithError(
@@ -108,7 +108,7 @@ export class Executor {
     }
 
     assertEmptyResponse() {
-        const isEmpty = this.lastResult.combinedOut.trim().length === 0;
+        const isEmpty = this.lastResult!.combinedOut.trim().length === 0;
 
         if (!isEmpty) {
             return this.failWithError(

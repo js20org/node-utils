@@ -9,7 +9,7 @@ export const handleError = (logger: ILogger, error: Error) => {
     if (isError) {
         logger.log(fontRed(error.message));
 
-        const stackOnly = error.stack.replace(error.message, '');
+        const stackOnly = error.stack!.replace(error.message, '');
         logger.log(fontDim(stackOnly));
     } else {
         logger.log(error);

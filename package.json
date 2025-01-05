@@ -4,31 +4,22 @@
     "license": "MIT",
     "private": false,
     "sideEffects": false,
-    "files": [
-        "dist-cjs",
-        "dist-esm"
-    ],
-    "main": "dist-cjs/index.js",
-    "module": "dist-esm/index.js",
-    "types": "dist-cjs/index.d.ts",
+    "main": "./dist/index.js",
+    "module": "./dist/index.js",
+    "types": "./dist/index.d.ts",
     "scripts": {
         "prebuild": "rimraf ./dist",
-        "build": "tsc --project tsconfig.build-cjs.json && tsc --project tsconfig.build-esm.json",
-        "show-coverage": "open ./tests/.coverage/lcov-report/index.html",
-        "test": "jest"
+        "build": "tsc",
+        "test": "vitest --coverage"
     },
     "dependencies": {
         "prompts": "^2.4.0"
     },
     "devDependencies": {
-        "@babel/core": "^7.15.0",
-        "@babel/plugin-transform-runtime": "^7.15.0",
-        "@babel/preset-env": "^7.15.0",
-        "@babel/preset-typescript": "^7.15.0",
-        "@types/jest": "^26.0.14",
-        "babel-jest": "^27.1.1",
-        "jest": "^26.4.2",
+        "@types/node": "^22.10.5",
+        "@types/prompts": "^2.4.9",
         "rimraf": "5.0.1",
-        "typescript": "^4.0.3"
+        "typescript": "^4.0.3",
+        "vitest": "^2.1.8"
     }
 }

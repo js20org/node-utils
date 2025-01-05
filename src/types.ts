@@ -6,6 +6,6 @@ export interface ILogger {
 }
 
 export interface IExecuteResult {
-    error: ExecException;
+    error: ExecException | null;
     combinedOut: string;
 }

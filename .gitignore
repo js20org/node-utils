@@ -1,6 +1,5 @@
 .DS_Store
 node_modules
-dist-esm
-dist-cjs
+dist
 dist-report
 tests/.coverage
