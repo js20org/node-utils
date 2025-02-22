@@ -1,3 +1,10 @@
+## [1.4.6](https://github.com/js20org/node-utils/compare/v1.4.5...v1.4.6) (2025-02-22)
+
+
+### Bug Fixes
+
+* types path ([8b96e2e](https://github.com/js20org/node-utils/commit/8b96e2e6291b4d77c1887769ff9ee0f8526fc33d))
+
 ## [1.4.5](https://github.com/js20org/node-utils/compare/v1.4.4...v1.4.5) (2025-02-22)
 
 
