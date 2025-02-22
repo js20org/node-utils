@@ -1,3 +1,10 @@
+## [1.4.5](https://github.com/js20org/node-utils/compare/v1.4.4...v1.4.5) (2025-02-22)
+
+
+### Bug Fixes
+
+* both esm and commonjs build ([bbc67f2](https://github.com/js20org/node-utils/commit/bbc67f237f4a9d192a46c8757c8ab8c68760093b))
+
 ## [1.4.4](https://github.com/js20org/node-utils/compare/v1.4.3...v1.4.4) (2025-01-05)
 
 
